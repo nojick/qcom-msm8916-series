@@ -1,0 +1,28 @@
+From f463d21538c76ea1179bdaa1431df183fe992e1e Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Sat, 23 Mar 2024 22:28:23 +0300
+Subject: [PATCH] IDO: The ido device uses the cust partition
+
+---
+ platform/fstab/fstab.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/platform/fstab/fstab.cpp b/platform/fstab/fstab.cpp
+index 518429d..89770d9 100644
+--- a/platform/fstab/fstab.cpp
++++ b/platform/fstab/fstab.cpp
+@@ -35,7 +35,11 @@ vendor_dlkm                         /vendor_dlkm    ext4    ro,noatime,errors=pa
+ #endif
+ #else
+ /dev/block/platform/soc@0/7824900.mmc/by-name/system    /system            ext4    noatime,ro,errors=panic wait,first_stage_mount
++#ifdef device_ido
++/dev/block/platform/soc@0/7824900.mmc/by-name/cust     /vendor            ext4    noatime,ro,errors=panic wait,first_stage_mount
++#else
+ /dev/block/platform/soc@0/7824900.mmc/by-name/cache     /vendor            ext4    noatime,ro,errors=panic wait,first_stage_mount
++#endif
+ /dev/block/platform/soc@0/7824900.mmc/by-name/userdata  /data              ext4    noatime,nosuid,nodev,barrier=1 wait,check,latemount,quota,formattable,__FILE_ENCRYPT__
+ 
+ // For firmwares
+-- 
+2.39.2
+
