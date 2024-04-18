@@ -9,6 +9,7 @@ cd .repo/manifests
 mv default.xml aosp.xml
 cp ${LOCAL_PATH}/manifests/glodroid.xml glodroid.xml
 cp ${LOCAL_PATH}/manifests/default_aosp.xml default.xml
+cp ${LOCAL_PATH}/manifests/remove_projects.xml remove_projects.xml
 git add *
 git commit -m "Add GloDroid Project" --no-edit
 popd
