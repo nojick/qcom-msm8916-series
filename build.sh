@@ -14,7 +14,7 @@ fi
 echo Building the Android for "$TARGETDEV"
 pushd aosptree
 . build/envsetup.sh
-lunch "$TARGETDEV"-userdebug
+lunch "$TARGETDEV"-ap1a-userdebug
 
 make -j15 || make -j1
 # Unknown targets after disabling BOARD_USES_GLODROID_MAKE_TARGETS
