@@ -16,7 +16,7 @@ pushd aosptree
 . build/envsetup.sh
 lunch "$TARGETDEV"-ap1a-userdebug
 
-make -j15 || make -j1
+make -j$(nproc --all)
 # Unknown targets after disabling BOARD_USES_GLODROID_MAKE_TARGETS
 #make images -k || make images -j1
 #make sdcard
