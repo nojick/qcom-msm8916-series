@@ -9,6 +9,11 @@ include glodroid/configuration/common/board-common.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(BC_PATH)/sepolicy/vendor
 
 BOARD_MESA3D_GALLIUM_DRIVERS := freedreno
+# Graphics
+include vendor/devices-community/ido/shared/graphics/mesa/BoardConfig.mk
+include vendor/devices-community/ido/shared/graphics/drm_hwcomposer/BoardConfig.mk
+BOARD_SEPOLICY_DIRS += \
+    vendor/devices-community/ido/shared/graphics/minigbm_msm/sepolicy \
 
 KERNEL_DEFCONFIG := $(BOARD_KERNEL_SRC_DIR)/arch/arm64/configs/msm8916_defconfig
 KERNEL_FRAGMENTS := $(BOARD_KERNEL_SRC_DIR)/kernel/configs/android.config \

@@ -3,6 +3,12 @@
 # Copyright (C) 2023 The GloDroid project
 
 $(call inherit-product, glodroid/configuration/common/device-common.mk)
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/drm_hwcomposer/device.mk)
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/mesa/device.mk)
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/minigbm_msm/device.mk)
+
+PRODUCT_VENDOR_PROPERTIES += \
+	vendor.minigbm.debug=nocompression \
 
 GD_NO_DEFAULT_FASTBOOTD := true
 GD_NO_DEFAULT_BOOTCTL   := true
@@ -80,12 +86,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     rmtfs \
     tqftpserv \
-
-# Checked by android.opengl.cts.OpenGlEsVersionTest#testOpenGlEsVersion.
-# Required to run correct set of dEQP tests.
-# 131072 == 0x00020000 == GLES v2.0
-PRODUCT_VENDOR_PROPERTIES += \
-    ro.opengles.version=131072
 
 # RRO that disables round items in quicksetting menu to increase performance
 PRODUCT_PACKAGES += \
