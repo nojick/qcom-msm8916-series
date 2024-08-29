@@ -82,6 +82,13 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl:64 \
     android.hardware.sensors@1.0-service \
 
+# FFmpeg
+PRODUCT_PACKAGES += \
+    android.hardware.media.c2@1.2-service-ffmpeg \
+    android.hardware.media.c2@1.2-service-ffmpeg.rc \
+    android.hardware.media.c2@1.2-service-ffmpeg.xml \
+    media_codecs_ffmpeg_c2.xml \
+
 # qcom modem/DSP services
 PRODUCT_PACKAGES += \
     rmtfs \

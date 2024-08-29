@@ -36,9 +36,9 @@
   <project path="glodroid/vendor/libcamera/subprojects/libyaml" remote="github"    name="yaml/libyaml.git"   groups="glodroid" revision="refs/tags/0.2.5" />
 
   <!-- video codecs components (vendor) -->
-  <project path="external/ffmpeg" name="raspberry-vanilla/android_external_ffmpeg" remote="github" revision="android-14.0" />
-  <project path="external/ffmpeg_codec2" name="raspberry-vanilla/android_external_ffmpeg_codec2" remote="github" revision="android-14.0" />
-  <project path="external/libudev-zero" name="raspberry-vanilla/android_external_libudev-zero" remote="github" revision="android-14.0" />
+  <project path="external/ffmpeg" name="raspberry-vanilla/android_external_ffmpeg" remote="github" revision="4f43388f0bbda0f43fc94ef933593240d91609d6" />
+  <project path="external/ffmpeg_codec2" name="raspberry-vanilla/android_external_ffmpeg_codec2" remote="github" revision="f062559e8a8068fd6b20a4d0ad63c85ec1f817ae" />
+  <project path="external/libudev-zero" name="raspberry-vanilla/android_external_libudev-zero" remote="github" revision="0ad91b71bcff531a6f3a98f028fe2bcad033c332" />
 
   <!-- modem components (vendor) -->
   <project path="glodroid/vendor/mm-radio"        remote="glodroid"    name="mm-radio.git"     groups="glodroid" revision="90f9f9a8b20ce2e153d39c9fc250ab2733a7fbb9" />
@@ -60,7 +60,6 @@
   <project path="glodroid/vendor/iio-sensors-hal" remote="msm8916"     name="android-iio-sensors-hal.git"       revision="msm8916" />
   <!-- <project path="glodroid/vendor/tinyhal"         remote="github"      name="CirrusLogic/tinyhal.git"           groups="glodroid" revision="9c5df120b33ca51f05d4f997da659111ab63498e" /> -->
   <project path="glodroid/vendor/tinyhal"         remote="vknecht"     name="tinyhal.git"           groups="glodroid" revision="refs/heads/feature-device-alsadev" />
-  <project path="glodroid/vendor/libudev-zero"    remote="vknecht"     name="glodroid_forks.git"                groups="glodroid" revision="refs/heads/libudev-zero-v0.8.2-msm88916" />
   <project path="glodroid/vendor/lights-hal"      remote="github"      name="SoMainline/android-lights-hal.git" groups="glodroid" revision="2dabedfb02744ef28fffe0b2df13575ca0c89ea3" />
 
   <!-- <project path="external/vibrator-ff" name="external_vibrator-ff" revision="main" remote="aospm" groups="default" /> -->
