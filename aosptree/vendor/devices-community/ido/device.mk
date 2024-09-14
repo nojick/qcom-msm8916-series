@@ -9,6 +9,11 @@ GD_NO_DEFAULT_BOOTCTL   := true
 GD_NO_DEFAULT_CAMERA    := true
 GD_NO_DEFAULT_APPS      := true
 
+# Device overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+PRODUCT_ENFORCE_RRO_TARGETS := \
+    framework-res
+
 # Files from linux-firmware
 PRODUCT_COPY_FILES += \
     glodroid/linux-firmware/qcom/a420_pfp.fw:$(TARGET_COPY_OUT_VENDOR)/firmware/a420_pfp.fw \
