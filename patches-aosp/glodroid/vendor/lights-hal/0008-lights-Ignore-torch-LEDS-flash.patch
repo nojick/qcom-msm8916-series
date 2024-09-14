@@ -1,0 +1,35 @@
+From 05674e912f0e1b000a80356ce1180b1c68c61f4f Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Sat, 14 Sep 2024 16:14:51 +0300
+Subject: [PATCH] lights: Ignore torch LEDS flash
+
+Skip creating lights for LEDs which name contain "torch" and "white:flash".
+
+The patch by vknecht.
+
+Change-Id: I702e2213a8d24db5e9b028229be5aa283e33b845
+---
+ Lights.cpp | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Lights.cpp b/Lights.cpp
+index 43b715f..0991bb2 100644
+--- a/Lights.cpp
++++ b/Lights.cpp
+@@ -229,9 +229,10 @@ Lights::Lights()
+         while (dirent *ent = readdir(leds)) {
+             if ((ent->d_type == DT_DIR && ent->d_name[0] != '.') || (ent->d_type == DT_LNK && strncmp("mmc", ent->d_name, 3))) {
+                 std::string ledPath = LEDS_DIR + "/" + ent->d_name;
+-                std::string torch = std::string("torch");
+-                if (ledPath.find(torch) != std::string::npos)
+-                    continue;
++		std::string flash = std::string("white:flash");
++		std::string torch = std::string("torch");
++		if ((ledPath.find(torch) != std::string::npos) || (ledPath.find(flash) != std::string::npos))
++		  continue;
+                 if (auto led = Led::createLed(
+                         // TODO: Also used for ATTENTION and BATTERY - register multiple instances?
+                         HwLight { .id = id++, .ordinal = ordinal++, .type = LightType::NOTIFICATIONS },
+-- 
+2.39.2
+
