@@ -4,6 +4,6 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/ido.mk
 
 COMMON_LUNCH_CHOICES := \
-    ido-user \
-    ido-userdebug \
-    ido-eng
+    ido-ap3a-user \
+    ido-ap3a-userdebug \
+    ido-ap3a-eng

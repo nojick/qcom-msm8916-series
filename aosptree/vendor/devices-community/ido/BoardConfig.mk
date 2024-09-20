@@ -7,7 +7,6 @@ BC_PATH := $(patsubst $(CURDIR)/%,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST))
 include glodroid/configuration/common/board-common.mk
 
 BOARD_VENDOR_SEPOLICY_DIRS += $(BC_PATH)/sepolicy/vendor
-BOARD_SEPOLICY_VERS := 33.0
 SELINUX_IGNORE_NEVERALLOWS := true
 BOARD_MESA3D_GALLIUM_DRIVERS := freedreno
 

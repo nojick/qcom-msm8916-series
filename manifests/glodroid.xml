@@ -13,15 +13,10 @@
   <remote  name="vknecht"        fetch="https://github.com/vknecht" />
    <remote  name="nojick"        fetch="https://github.com/nojick" />
   <remote  name="linux-firmware" fetch="https://git.kernel.org/pub/scm/linux/kernel/git/firmware" />
-
+<!--
   <remove-project name="platform/external/mesa3d" />
   <remove-project name="platform/external/drm_hwcomposer" />
-
-  <!-- Those repos don't seem to play well with android-platform tags, don't need them anyway... -->
-  <remove-project optional="true" name="platform/hardware/qcom/audio" />
-  <remove-project optional="true" name="platform/hardware/qcom/display" />
-  <remove-project optional="true" name="platform/hardware/qcom/media" />
-  <remove-project optional="true" name="platform/hardware/qcom/wlan" />
+-->
 
   <project path="glodroid"                        remote="glodroid" name="glodroid_configuration.git" groups="glodroid" revision="refs/tags/basedir-v0.9.0" />
   <project path="glodroid/configuration"          remote="glodroid" name="glodroid_configuration.git" groups="glodroid" revision="885ea1abc643468f040e8c398719a1fd6a5361bb" />
@@ -29,20 +24,22 @@
   <project path="glodroid/apks"                   remote="glodroid" name="glodroid_external_apks.git" groups="glodroid" revision="refs/tags/apps-v0.8.2" />
 
   <!-- gpu+display components (vendor) -->
+  <!--
   <project path="glodroid/vendor/minigbm"         remote="aosp" name="platform/external/minigbm"        groups="glodroid" revision="cf10ab71d8b75ba79fffe580326f0d88edfec323" />
   <project path="glodroid/vendor/drm_hwcomposer"  remote="aosp" name="platform/external/drm_hwcomposer" groups="glodroid" revision="2bf68c374976d0a7a0e71c1843cbeae2a3210b74" />
   <project path="glodroid/vendor/mesa3d"          remote="aosp" name="platform/external/mesa3d"         groups="glodroid" revision="refs/tags/upstream-mesa-23.1.7" />
-
+-->
   <!-- camera components (vendor) -->
   <project path="glodroid/vendor/libcamera"                     remote="libcamera" name="libcamera.git"      groups="glodroid" revision="ea8ae5afff226f9373c82c1a3185e532d5d6eda0" />
   <project path="glodroid/vendor/libcamera/subprojects/libyuv"  remote="glodroid"  name="glodroid_forks.git" groups="glodroid" revision="refs/tags/libyuv-v0.8.2" />
   <project path="glodroid/vendor/libcamera/subprojects/libyaml" remote="github"    name="yaml/libyaml.git"   groups="glodroid" revision="refs/tags/0.2.5" />
 
   <!-- video codecs components (vendor) -->
+  <!--
   <project path="glodroid/vendor/dav1d"           remote="videolan"    name="dav1d.git"          groups="glodroid" revision="refs/tags/1.1.0" />
   <project path="glodroid/vendor/ffmpeg"          remote="github"      name="FFmpeg/FFmpeg.git"  groups="glodroid" revision="refs/tags/n6.0" clone-depth="1" />
   <project path="glodroid/vendor/ffmpeg_codec2"   remote="glodroid"    name="glodroid_forks.git" groups="glodroid" revision="refs/tags/ffmpeg_codec2-2023w14" clone-depth="1" />
-
+-->
   <!-- modem components (vendor) -->
   <project path="glodroid/vendor/mm-radio"        remote="glodroid"    name="mm-radio.git"     groups="glodroid" revision="90f9f9a8b20ce2e153d39c9fc250ab2733a7fbb9" />
   <project path="glodroid/vendor/mm-radio/vendor" remote="glodroid"    name="mm-radio.git"     groups="glodroid" revision="refs/tags/cargo-deps-2023w07" clone-depth="1" />
