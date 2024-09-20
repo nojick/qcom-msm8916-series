@@ -105,6 +105,9 @@ PRODUCT_VENDOR_PROPERTIES += \
 PRODUCT_PACKAGES += \
     SystemUISlowGpu
 
+PRODUCT_PACKAGES += \
+		fstab
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth-service.default \
