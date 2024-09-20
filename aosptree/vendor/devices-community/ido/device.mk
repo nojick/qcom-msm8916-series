@@ -4,10 +4,15 @@
 
 $(call inherit-product, glodroid/configuration/common/device-common.mk)
 
+GD_NO_DEFAULT_GRAPHICS := true
+GD_USE_RS_HWCOMPOSER := true
 GD_NO_DEFAULT_FASTBOOTD := true
 GD_NO_DEFAULT_BOOTCTL   := true
 GD_NO_DEFAULT_CAMERA    := true
 GD_NO_DEFAULT_APPS      := true
+
+DEVICE_MANIFEST_FILE += \
+	vendor/devices-community/ido/android.hardware.graphics.composer.xml \
 
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -86,11 +91,13 @@ PRODUCT_PACKAGES += \
     rmtfs \
     tqftpserv \
 
-# Checked by android.opengl.cts.OpenGlEsVersionTest#testOpenGlEsVersion.
-# Required to run correct set of dEQP tests.
-# 131072 == 0x00020000 == GLES v2.0
+# Graphics linaro config.
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/drm_hwcomposer/device.mk)
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/mesa/device.mk)
+$(call inherit-product, vendor/devices-community/ido/shared/graphics/minigbm_msm/device.mk)
+
 PRODUCT_VENDOR_PROPERTIES += \
-    ro.opengles.version=131072
+	vendor.minigbm.debug=nocompression \
 
 # RRO that disables round items in quicksetting menu to increase performance
 PRODUCT_PACKAGES += \
