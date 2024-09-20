@@ -9,6 +9,11 @@ include glodroid/configuration/common/board-common.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(BC_PATH)/sepolicy/vendor
 SELINUX_IGNORE_NEVERALLOWS := true
 
+#This behavior has been changed, and now the partition images only include what they'd have if you
+#did a clean build. This behavior can be disabled by setting the
+#`BUILD_BROKEN_INCORRECT_PARTITION_IMAGES` environment variable or board config variable.
+BUILD_BROKEN_INCORRECT_PARTITION_IMAGES := true
+
 # Graphics
 include vendor/devices-community/ido/shared/graphics/mesa/BoardConfig.mk
 include vendor/devices-community/ido/shared/graphics/drm_hwcomposer/BoardConfig.mk
