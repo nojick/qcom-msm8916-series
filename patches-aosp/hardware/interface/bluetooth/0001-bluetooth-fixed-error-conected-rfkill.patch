@@ -1,0 +1,133 @@
+From 962221edb3068b4eed061f5d194dd7fa1e05f34b Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Fri, 20 Sep 2024 15:46:04 +0300
+Subject: [PATCH] bluetooth: fixed error conected  rfkill
+
+I android.hardware.bluetooth.service.default: initialize
+09-17 05:36:00.751   448   448 I android.hardware.bluetooth.service.default: opening hci interface 0
+09-17 05:36:00.751   448   448 I android.hardware.bluetooth.service.default: index:0 type:2 op:0
+09-17 05:36:00.753   448   448 I android.hardware.bluetooth.service.default: waiting for hci interface 0
+09-17 05:36:00.753   448   448 I android.hardware.bluetooth.service.default: hci interface 0 found
+09-17 05:36:00.754   448   448 E android.hardware.bluetooth.service.default: unable to bind bluetooth user channel: Operation not possible due to RF-kill
+09-17 05:36:00.754   448   448 I android.hardware.bluetooth.service.default: Unable to open Linux interface, trying default path.
+09-17 05:36:00.754   448   448 E android.hardware.bluetooth.service.default: Could not connect to bt: /dev/hvc5 (No such file or directory)
+
+bt linux was deleted, I took a piece of code to make the aidl service work. It's working.
+
+https: //android.googlesource.com/platform/packages/modules/Bluetooth/+/c8198c7b3ed58942368dbc63b80a3b89aa5d6c0f
+Change-Id: I0fc2fa74eab4275c5c780e4821eeea6addd6649a
+---
+ bluetooth/aidl/default/net_bluetooth_mgmt.cpp | 56 ++++++++++++++++++-
+ bluetooth/aidl/default/net_bluetooth_mgmt.h   |  2 +
+ 2 files changed, 55 insertions(+), 3 deletions(-)
+
+diff --git a/bluetooth/aidl/default/net_bluetooth_mgmt.cpp b/bluetooth/aidl/default/net_bluetooth_mgmt.cpp
+index 24693effcd..db4b73f09f 100644
+--- a/bluetooth/aidl/default/net_bluetooth_mgmt.cpp
++++ b/bluetooth/aidl/default/net_bluetooth_mgmt.cpp
+@@ -28,7 +28,9 @@
+ #include <cstdint>
+ #include <cstdlib>
+ #include <cstring>
+-
++#define WRITE_NO_INTR(fn) \
++  do {                  \
++  } while ((fn) == -1 && errno == EINTR)
+ // Definitions imported from <linux/net/bluetooth/bluetooth.h>
+ #define BTPROTO_HCI 1
+ 
+@@ -227,7 +229,7 @@ int NetBluetoothMgmt::openRfkill() {
+   ::close(fd);
+   return -1;
+ }
+-
++/*
+ // Block or unblock Bluetooth.
+ int NetBluetoothMgmt::rfkill(int block) {
+   if (rfkill_fd_ == -1) {
+@@ -255,11 +257,12 @@ int NetBluetoothMgmt::rfkill(int block) {
+ 
+   return 0;
+ }
+-
++*/
+ int NetBluetoothMgmt::openHci(int hci_interface) {
+   ALOGI("opening hci interface %d", hci_interface);
+ 
+   // Block Bluetooth.
++  rfkill_state_ = NULL;
+   rfkill(1);
+ 
+   // Wait for the HCI interface to complete initialization or to come online.
+@@ -302,6 +305,53 @@ void NetBluetoothMgmt::closeHci() {
+ 
+   // Unblock Bluetooth.
+   rfkill(0);
++  free(rfkill_state_);
++}
++
++int NetBluetoothMgmt::findRfKill() {
++    char rfkill_type[64];
++    char type[16];
++    int fd, size, i;
++    for(i = 0; rfkill_state_ == NULL; i++)
++    {
++        snprintf(rfkill_type, sizeof(rfkill_type), "/sys/class/rfkill/rfkill%d/type", i);
++        if ((fd = open(rfkill_type, O_RDONLY)) < 0)
++        {
++            ALOGE("open(%s) failed: %s (%d)\n", rfkill_type, strerror(errno), errno);
++            return -1;
++        }
++
++        size = read(fd, &type, sizeof(type));
++        ::close(fd);
++
++        if ((size >= 9) && !memcmp(type, "bluetooth", 9))
++        {
++            ::asprintf(&rfkill_state_, "/sys/class/rfkill/rfkill%d/state", i);
++            break;
++        }
++    }
++    return 0;
++}
++
++int NetBluetoothMgmt::rfkill(int block) {
++  int fd;
++  char on = (block)?'1':'0';
++  if (findRfKill() != 0) return 0;
++
++  fd = open(rfkill_state_, O_WRONLY);
++  if (fd < 0) {
++    ALOGE( "Unable to open /dev/rfkill");
++    return -1;
++  }
++  ssize_t len;
++  WRITE_NO_INTR(len = write(fd, &on, 1));
++  if (len < 0) {
++    ALOGE( "Failed to change rfkill state");
++    ::close(fd);
++    return -1;
++  }
++  ::close(fd);
++  return 0;
+ }
+ 
+ }  // namespace aidl::android::hardware::bluetooth::impl
+diff --git a/bluetooth/aidl/default/net_bluetooth_mgmt.h b/bluetooth/aidl/default/net_bluetooth_mgmt.h
+index 5c473f2e0b..0ae8a62394 100644
+--- a/bluetooth/aidl/default/net_bluetooth_mgmt.h
++++ b/bluetooth/aidl/default/net_bluetooth_mgmt.h
+@@ -33,8 +33,10 @@ class NetBluetoothMgmt {
+ 
+  private:
+   int waitHciDev(int hci_interface);
++  int findRfKill(void);
+   int openRfkill();
+   int rfkill(int block);
++  char *rfkill_state_;
+ 
+   // Index of the first rfkill device of type bluetooth.
+   int rfkill_bt_index_{-1};
+-- 
+2.39.2
+

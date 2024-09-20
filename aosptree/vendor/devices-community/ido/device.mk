@@ -4,6 +4,7 @@
 
 $(call inherit-product, glodroid/configuration/common/device-common.mk)
 
+GD_NO_DEFAULT_BLUETOOTH := true
 GD_NO_DEFAULT_GRAPHICS := true
 GD_USE_RS_HWCOMPOSER := true
 GD_NO_DEFAULT_CODECS := true
@@ -105,28 +106,41 @@ PRODUCT_PACKAGES += \
     SystemUISlowGpu
 
 # Bluetooth
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth-service.default \
+    android.hardware.bluetooth.audio-impl \
+    audio.bluetooth.default \
+
+#PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
+
 PRODUCT_VENDOR_PROPERTIES += \
+    bluetooth.core.le.vendor_capabilities.enabled=false \
     bluetooth.device.class_of_device=90,2,12 \
-    bluetooth.profile.asha.central.enabled=true \
-    bluetooth.profile.a2dp.source.enabled=true \
-    bluetooth.profile.avrcp.target.enabled=true \
-    bluetooth.profile.bap.broadcast.assist.enabled=true \
-    bluetooth.profile.bap.unicast.client.enabled=true \
-    bluetooth.profile.bas.client.enabled=true \
-    bluetooth.profile.csip.set_coordinator.enabled=true \
-    bluetooth.profile.gatt.enabled=true \
-    bluetooth.profile.hap.client.enabled=true \
-    bluetooth.profile.hfp.ag.enabled=true \
-    bluetooth.profile.hid.device.enabled=true \
-    bluetooth.profile.hid.host.enabled=true \
-    bluetooth.profile.map.server.enabled=true \
-    bluetooth.profile.mcp.server.enabled=true \
-    bluetooth.profile.opp.enabled=true \
-    bluetooth.profile.pan.nap.enabled=true \
-    bluetooth.profile.pan.panu.enabled=true \
-    bluetooth.profile.pbap.server.enabled=true \
-    bluetooth.profile.sap.server.enabled=true \
-    bluetooth.profile.ccp.server.enabled=true \
-    bluetooth.profile.vcp.controller.enabled=true \
-    persist.bluetooth.a2dp_aac.vbr_supported=true \
+    bluetooth.profile.asha.central.enabled?=true \
+    bluetooth.profile.a2dp.source.enabled?=true \
+    bluetooth.profile.avrcp.target.enabled?=true \
+    bluetooth.profile.gatt.enabled?=true \
+    bluetooth.profile.hfp.ag.enabled?=true \
+    bluetooth.profile.hid.device.enabled?=true \
+    bluetooth.profile.hid.host.enabled?=true \
+    bluetooth.profile.map.server.enabled?=true \
+    bluetooth.profile.mcp.server.enabled?=true \
+    bluetooth.profile.opp.enabled?=true \
+    bluetooth.profile.pan.nap.enabled?=true \
+    bluetooth.profile.pan.panu.enabled?=true \
+    bluetooth.profile.pbap.server.enabled?=true \
+    bluetooth.profile.sap.server.enabled?=true \
+    persist.bluetooth.a2dp_aac.vbr_supported?=true \
+# Disable LeAudio related profile as there is no support for it
+PRODUCT_VENDOR_PROPERTIES += \
+    bluetooth.profile.bap.broadcast.assist.enabled=false \
+    bluetooth.profile.bap.unicast.client.enabled=false \
+    bluetooth.profile.bas.client.enabled=false \
+    bluetooth.profile.ccp.server.enabled=false \
+    bluetooth.profile.csip.set_coordinator.enabled=false \
+    bluetooth.profile.hap.client.enabled=false \
+    bluetooth.profile.vcp.controller.enabled=false \
+      
 
