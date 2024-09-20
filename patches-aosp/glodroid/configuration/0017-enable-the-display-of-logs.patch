@@ -1,0 +1,25 @@
+From f8b9e2fa1520f0e45ce347bcc22b5aaef411e388 Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Wed, 24 Apr 2024 20:46:23 +0300
+Subject: [PATCH] enable the display of logs
+
+enable the display of logs on the phone screen when downloading, without this, logs are not displayed.
+---
+ platform/kernel/android-recommended.config | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/platform/kernel/android-recommended.config b/platform/kernel/android-recommended.config
+index de28508..e63de8d 100644
+--- a/platform/kernel/android-recommended.config
++++ b/platform/kernel/android-recommended.config
+@@ -4,7 +4,6 @@
+ # CONFIG_KSM is not set
+ # CONFIG_LEGACY_PTYS is not set
+ # CONFIG_NF_CONNTRACK_SIP is not set
+-# CONFIG_VT is not set
+ CONFIG_BACKLIGHT_LCD_SUPPORT=y
+ CONFIG_BLK_DEV_DM=y
+ CONFIG_BLK_DEV_RAM=y
+-- 
+2.39.2
+

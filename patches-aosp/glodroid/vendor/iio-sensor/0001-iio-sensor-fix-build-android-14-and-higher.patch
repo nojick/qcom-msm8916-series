@@ -1,0 +1,44 @@
+From e3c7eec3b74ad6faee7c2020c30a557bb838dca7 Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Mon, 16 Sep 2024 23:40:00 +0300
+Subject: [PATCH] iio-sensor: fix build android 14 and higher
+
+glodroid/vendor/iio-sensors-hal/./enumeration.c:917:5: error: misleading indenta
+tion; statement is not part of the previous 'if' [-Werror,-Wmisleading-indentati
+on]
+  917 |                                 updated[s] = 1;
+      |                                 ^
+glodroid/vendor/iio-sensors-hal/./enumeration.c:914:4: note: previous statement
+is here
+  914 |                         if (!strncmp(name, sensor[s].internal_name, sens
+or_name_len))
+      |                         ^
+1 error generated.
+---
+ enumeration.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/enumeration.c b/enumeration.c
+index 273c8f7..f85de49 100644
+--- a/enumeration.c
++++ b/enumeration.c
+@@ -912,10 +912,12 @@ static void update_sensor_matching_trigger_name (char name[MAX_NAME_SIZE], int*
+ 			sensor_name_len = strlen(sensor[s].internal_name);
+ 
+ 			if (!strncmp(name, sensor[s].internal_name, sensor_name_len))
+-				/* Switch to new trigger if appropriate */
+-				propose_new_trigger(s, name, sensor_name_len);
+-				updated[s] = 1;
+-				sensor[s].trigger_nr = trigger;
++			{
++			    /* Switch to new trigger if appropriate */
++			    propose_new_trigger(s, name, sensor_name_len);
++			    updated[s] = 1;
++			    sensor[s].trigger_nr = trigger;
++			}
+ 		}
+ }
+ 
+-- 
+2.39.2
+
