@@ -7,7 +7,6 @@ $(call inherit-product, glodroid/configuration/common/device-common.mk)
 GD_NO_DEFAULT_BLUETOOTH := true
 GD_NO_DEFAULT_GRAPHICS := true
 GD_USE_RS_HWCOMPOSER := true
-GD_NO_DEFAULT_CODECS := true
 GD_NO_DEFAULT_FASTBOOTD := true
 GD_NO_DEFAULT_BOOTCTL   := true
 GD_NO_DEFAULT_CAMERA    := true

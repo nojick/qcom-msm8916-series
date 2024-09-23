@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-
+  <remote name="github"		 fetch="https://github.com/" />
   <remote  name="glodroid"       fetch="https://github.com/glodroid/" />
   <remote  name="gnome"          fetch="https://github.com/GNOME/" />
   <remote  name="mbroadband"     fetch="https://gitlab.freedesktop.org/mobile-broadband" />
@@ -11,7 +11,7 @@
   <remote  name="aospm"          fetch="https://github.com/aospm" />
   <remote  name="msm8916"        fetch="https://github.com/msm8916-mainline" />
   <remote  name="vknecht"        fetch="https://github.com/vknecht" />
-   <remote  name="nojick"        fetch="https://github.com/nojick" />
+  <remote  name="nojick"	 fetch="https://github.com/nojick" />
   <remote  name="linux-firmware" fetch="https://git.kernel.org/pub/scm/linux/kernel/git/firmware" />
 <!--
   <remove-project name="platform/external/mesa3d" />
@@ -35,11 +35,10 @@
   <project path="glodroid/vendor/libcamera/subprojects/libyaml" remote="github"    name="yaml/libyaml.git"   groups="glodroid" revision="refs/tags/0.2.5" />
 
   <!-- video codecs components (vendor) -->
-  <!--
-  <project path="glodroid/vendor/dav1d"           remote="videolan"    name="dav1d.git"          groups="glodroid" revision="refs/tags/1.1.0" />
-  <project path="glodroid/vendor/ffmpeg"          remote="github"      name="FFmpeg/FFmpeg.git"  groups="glodroid" revision="refs/tags/n6.0" clone-depth="1" />
-  <project path="glodroid/vendor/ffmpeg_codec2"   remote="glodroid"    name="glodroid_forks.git" groups="glodroid" revision="refs/tags/ffmpeg_codec2-2023w14" clone-depth="1" />
--->
+  <project path="glodroid/vendor/ffmpeg" name="raspberry-vanilla/android_external_ffmpeg" remote="github" revision="android-15.0" />
+  <project path="glodroid/vendor/ffmpeg_codec2" name="raspberry-vanilla/android_external_ffmpeg_codec2" remote="github" revision="android-15.0" />
+  <remove-project name="platform/external/libdav1d" />
+  <project path="external/libdav1d" name="raspberry-vanilla/android_external_libdav1d" remote="github" revision="android-15.0" />
   <!-- modem components (vendor) -->
   <project path="glodroid/vendor/mm-radio"        remote="glodroid"    name="mm-radio.git"     groups="glodroid" revision="90f9f9a8b20ce2e153d39c9fc250ab2733a7fbb9" />
   <project path="glodroid/vendor/mm-radio/vendor" remote="glodroid"    name="mm-radio.git"     groups="glodroid" revision="refs/tags/cargo-deps-2023w07" clone-depth="1" />

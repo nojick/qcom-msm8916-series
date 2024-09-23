@@ -1,0 +1,61 @@
+From 05ec799c7996dc7b9207ae459d0aff828845e118 Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Sat, 21 Sep 2024 11:01:10 +0300
+Subject: [PATCH] I do not use AOSPEXT to build codecs
+
+---
+ common/codecs/board.mk               | 6 +++---
+ common/codecs/device.mk              | 2 ++
+ platform/kernel/android-extra.config | 2 +-
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/common/codecs/board.mk b/common/codecs/board.mk
+index fed5d9b..1c66abd 100644
+--- a/common/codecs/board.mk
++++ b/common/codecs/board.mk
+@@ -6,13 +6,13 @@
+ 
+ BCDC_PATH := $(patsubst $(CURDIR)/%,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+ 
+-BOARD_BUILD_AOSPEXT_DAV1D := true
++BOARD_BUILD_AOSPEXT_DAV1D := false
+ BOARD_DAV1D_SRC_DIR := glodroid/vendor/dav1d
+ 
+-BOARD_BUILD_AOSPEXT_FFMPEG := true
++BOARD_BUILD_AOSPEXT_FFMPEG := false
+ BOARD_FFMPEG_SRC_DIR := glodroid/vendor/ffmpeg
+ 
+-BOARD_BUILD_AOSPEXT_FFMPEGCODEC2 := true
++BOARD_BUILD_AOSPEXT_FFMPEGCODEC2 := false
+ BOARD_FFMPEGCODEC2_SRC_DIR := glodroid/vendor/ffmpeg_codec2
+ 
+ BOARD_VENDOR_SEPOLICY_DIRS += $(BCDC_PATH)/sepolicy/vendor
+diff --git a/common/codecs/device.mk b/common/codecs/device.mk
+index b60c263..8bc76fa 100644
+--- a/common/codecs/device.mk
++++ b/common/codecs/device.mk
+@@ -12,6 +12,8 @@ PRODUCT_PACKAGES += \
+     android.hardware.media.c2@1.2-service-ffmpeg.rc \
+     android.hardware.media.c2@1.2-service-ffmpeg.xml \
+     media_codecs_ffmpeg_c2.xml \
++    dav1d \
++    libdav1d
+ 
+ # Create input surface on the framework side
+ PRODUCT_VENDOR_PROPERTIES += \
+diff --git a/platform/kernel/android-extra.config b/platform/kernel/android-extra.config
+index f127417..cdbdae5 100644
+--- a/platform/kernel/android-extra.config
++++ b/platform/kernel/android-extra.config
+@@ -40,7 +40,7 @@ CONFIG_DMABUF_HEAPS_PAGE_POOL=y
+ CONFIG_DMABUF_HEAPS_SYSTEM=y
+ 
+ #  Requred by GenericBootImageTest#KernelReleaseFormat
+-CONFIG_LOCALVERSION="-android13-0-GloDroid"
++CONFIG_LOCALVERSION="-android15-0-GloDroid"
+ 
+ # Set to y, otherwise a set of essential kernel configs will be force-disabled. (like CONFIG_TRACE_GPU_MEM)
+ CONFIG_GKI_HACKS_TO_FIX=y
+-- 
+2.39.2
+
