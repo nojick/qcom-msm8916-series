@@ -14,7 +14,6 @@
   <remote  name="nojick"	 fetch="https://github.com/nojick" />
   <remote  name="linux-firmware" fetch="https://git.kernel.org/pub/scm/linux/kernel/git/firmware" />
 <!--
-  <remove-project name="platform/external/mesa3d" />
   <remove-project name="platform/external/drm_hwcomposer" />
 -->
 
@@ -24,11 +23,15 @@
   <project path="glodroid/apks"                   remote="glodroid" name="glodroid_external_apks.git" groups="glodroid" revision="refs/tags/apps-v0.8.2" />
 
   <!-- gpu+display components (vendor) -->
+  <!-- Used default external -->
   <!--
   <project path="glodroid/vendor/minigbm"         remote="aosp" name="platform/external/minigbm"        groups="glodroid" revision="cf10ab71d8b75ba79fffe580326f0d88edfec323" />
   <project path="glodroid/vendor/drm_hwcomposer"  remote="aosp" name="platform/external/drm_hwcomposer" groups="glodroid" revision="2bf68c374976d0a7a0e71c1843cbeae2a3210b74" />
-  <project path="glodroid/vendor/mesa3d"          remote="aosp" name="platform/external/mesa3d"         groups="glodroid" revision="refs/tags/upstream-mesa-23.1.7" />
--->
+  -->
+  <!--FIXME? mesa3d in android 15 does not contain android files.bp for build -->
+  <remove-project name="platform/external/mesa3d" />
+  <project path="external/mesa3d" name="raspberry-vanilla/android_external_mesa3d" remote="github" revision="android-15.0" />
+
   <!-- camera components (vendor) -->
   <project path="glodroid/vendor/libcamera"                     remote="libcamera" name="libcamera.git"      groups="glodroid" revision="ea8ae5afff226f9373c82c1a3185e532d5d6eda0" />
   <project path="glodroid/vendor/libcamera/subprojects/libyuv"  remote="glodroid"  name="glodroid_forks.git" groups="glodroid" revision="refs/tags/libyuv-v0.8.2" />
