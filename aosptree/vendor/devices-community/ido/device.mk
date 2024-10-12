@@ -75,6 +75,7 @@ PRODUCT_COPY_FILES += \
     glodroid/configuration/common/no_suspend.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/no_suspend.rc \
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mixer_paths.xml \
     $(LOCAL_PATH)/etc/audio.ido.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio.ido.xml \
 
 # Lights HAL

@@ -1,0 +1,26 @@
+From 273776f71fc13b86530aa4d33bae43e254e39708 Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Sat, 12 Oct 2024 10:25:15 +0300
+Subject: [PATCH] tinyhal: Disable build tinyhal
+
+until it is fixed
+---
+ common/audio/board.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/common/audio/board.mk b/common/audio/board.mk
+index b3f823d..b424889 100644
+--- a/common/audio/board.mk
++++ b/common/audio/board.mk
+@@ -7,7 +7,7 @@
+ BCA_PATH := $(patsubst $(CURDIR)/%,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+ 
+ # TinyHAL (Audio)
+-BOARD_USES_TINYHAL_AUDIO := true
++BOARD_USES_TINYHAL_AUDIO := false
+ TINYCOMPRESS_TSTAMP_IS_LONG := true
+ TINYALSA_NO_ADD_NEW_CTRLS := true
+ TINYALSA_NO_CTL_GET_ID := true
+-- 
+2.43.0
+
