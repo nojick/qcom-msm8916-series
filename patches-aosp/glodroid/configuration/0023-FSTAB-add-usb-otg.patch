@@ -1,0 +1,23 @@
+From 653f632b94fbe05180523f2aff53a0c6d0d8b2c1 Mon Sep 17 00:00:00 2001
+From: nojick <nojick@gmail.com>
+Date: Wed, 16 Oct 2024 19:27:59 +0300
+Subject: [PATCH] FSTAB: add usb otg
+
+OTG is now working
+---
+ platform/fstab/fstab.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/platform/fstab/fstab.cpp b/platform/fstab/fstab.cpp
+index 89770d9..d49293d 100644
+--- a/platform/fstab/fstab.cpp
++++ b/platform/fstab/fstab.cpp
+@@ -48,4 +48,5 @@ vendor_dlkm                         /vendor_dlkm    ext4    ro,noatime,errors=pa
+ /dev/block/platform/soc@0/7824900.mmc/by-name/persist   /vendor/odm/persist  ext4    noatime,ro,noauto_da_alloc wait
+ 
+ /devices/platform/soc@0/7864900.mmc/mmc_host/mmc*       auto                 auto    defaults     voldmanaged=sdcard1:auto
++/devices/platform/soc@0/78d9000.usb/ci_hdrc.0*                      auto         auto    defaults      voldmanaged=usb:auto
+ #endif
+-- 
+2.43.0
+
